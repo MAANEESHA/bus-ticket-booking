@@ -1,0 +1,181 @@
+
+<!-- saved from url=(0073)file:///C:/Users/YOKES/OneDrive/Desktop/web%20project/HTML%20PROJECT.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bus Ticket Booking</title>
+    <style>
+        /* Simple responsive styling */
+        :root{--accent:#1e88e5;--muted:#666}
+        *{box-sizing:border-box}
+        body{font-family:Inter, system-ui, Arial; margin:0; background:#f6f8fb; color:#123;}
+        .container{max-width:980px;margin:32px auto;padding:20px}
+        header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+        header h1{margin:0;font-size:1.4rem}
+        .card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:18px}
+        form .row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        form .full{grid-column:1/-1}
+        label{display:block;font-size:0.85rem;margin-bottom:6px;color:var(--muted)}
+        input, select{width:100%;padding:10px;border-radius:8px;border:1px solid #e2e8f0}
+        .actions{display:flex;gap:10px;align-items:center;margin-top:12px}
+        button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+        .muted{color:var(--muted);font-size:0.92rem}
+        .summary{padding:12px;border-radius:8px;background:#f8fafc;border:1px solid #edf2f7}
+        .flex{display:flex;gap:12px;align-items:center}
+        .errors{background:#ffefef;border:1px solid #ffd2d2;padding:10px;border-radius:8px;color:#7a0b0b;margin-bottom:12px}
+        .success{background:#ecfdf5;border:1px solid #95f2c7;padding:10px;border-radius:8px;color:#064e3b;margin-bottom:12px}
+        @media (max-width:720px){form .row{grid-template-columns:1fr} }
+    </style>
+
+
+<div class="container">
+    <header>
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#e3f2fd"></rect><path d="M3 12h18M6 7h12M6 17h12" stroke="#1e88e5" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        <div>
+            <h1>Bus Ticket Booking</h1>
+            <div class="muted">Quick, simple booking demo (save file as <code>bus_ticket_booking.php</code>)</div>
+        </div>
+    </header>
+
+    <div class="card">
+        <!--?php if (!empty(\$errors)): ?-->
+            <div class="errors">
+                <strong>Fix the following:</strong>
+                <ul>
+                    <!--?php foreach (\$errors as \$e) echo "<li-->".htmlspecialchars(\$e).""; ?&gt;
+                </ul>
+            </div>
+        <!--?php endif; ?-->
+
+        <!--?php if (\$success): ?-->
+            <div class="success">
+                <strong>Booking confirmed!</strong>
+                <div>Booking ID: <strong><!--?php echo htmlspecialchars(\$success['booking_id']); ?--></strong></div>
+                <div class="muted">A simple receipt has been recorded. (This is a demo — check <code>bookings.csv</code> file.)</div>
+            </div>
+        <!--?php endif; ?-->
+
+        <form id="bookingForm" method="post" novalidate="">
+            <div class="row">
+                <div>
+                    <label for="name">Full name</label>
+                    <input id="name" name="name" value="&lt;?php echo isset(\$_POST[&#39;name&#39;])?htmlspecialchars(\$_POST[&#39;name&#39;]):&#39;&#39;; ?&gt;" required="">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" value="" required="">
+                </div>
+
+                <div>
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" value="" required="">
+                </div>
+                <div>
+                    <label for="seats">Seats</label>
+                    <input id="seats" name="seats" type="number" min="1" max="10" value="&lt;?php echo isset(\$_POST[&#39;seats&#39;])?htmlspecialchars(\$_POST[&#39;seats&#39;]):&#39;1&#39;; ?&gt;">
+                </div>
+
+                <div>
+                    <label for="from">From</label>
+                    <input id="from" name="from" value="">
+                </div>
+                <div>
+                    <label for="to">To</label>
+                    <input id="to" name="to" value="">
+                </div>
+
+                <div>
+                    <label for="date">Date</label>
+                    <input id="date" name="date" type="date" value="&lt;?php echo isset(\$_POST[&#39;date&#39;])?htmlspecialchars(\$_POST[&#39;date&#39;]):&#39;&#39;; ?&gt;">
+                </div>
+                <div>
+                    <label for="time">Time</label>
+                    <input id="time" name="time" type="time" value="&lt;?php echo isset(\$_POST[&#39;time&#39;])?htmlspecialchars(\$_POST[&#39;time&#39;]):&#39;&#39;; ?&gt;">
+                </div>
+
+                <div class="full">
+                    <label for="seat_type">Seat type</label>
+                    <select id="seat_type" name="seat_type">
+                        <option value="General" <?php="" echo="" (isset(\$_post['seat_type'])="" &&="" \$_post['seat_type']="=&#39;General&#39;)?&#39;selected&#39;:&#39;&#39;;" ?="">&gt;General (₹350)</option>
+                        <option value="AC" <?php="" echo="" (isset(\$_post['seat_type'])="" &&="" \$_post['seat_type']="=&#39;AC&#39;)?&#39;selected&#39;:&#39;&#39;;" ?="">&gt;AC (₹600)</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div style="display:flex;gap:14px;margin-top:14px;align-items:center;flex-wrap:wrap">
+                <div class="summary">
+                    <div><strong>Fare summary</strong></div>
+                    <div class="flex"><div class="muted">Price per seat:</div><div id="priceLabel">₹350</div></div>
+                    <div class="flex"><div class="muted">Seats:</div><div id="seatsLabel">1</div></div>
+                    <div class="flex"><div class="muted">Total:</div><div id="totalLabel">₹350</div></div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit">Book Now</button>
+                    <div class="muted">We will save a simple record to <code>bookings.csv</code> on the server.</div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+        <div class="card" style="flex:1;min-width:220px">
+            <h3 style="margin-top:0">How to run</h3>
+            <ol style="margin:0 0 8px 18px">
+                <li>Save this file as <code>bus_ticket_booking.php</code> in your server folder (htdocs/www).</li>
+                <li>Make sure the folder is writable so <code>bookings.csv</code> can be created (chmod 755/775 or as needed).</li>
+                <li>Open it in browser via <code>http://localhost/bus_ticket_booking.php</code>.</li>
+            </ol>
+            <div class="muted">Note: This demo uses a CSV file for storage — for production, use a database + stronger validation and authentication.</div>
+        </div>
+
+        <div class="card" style="flex:1;min-width:220px">
+            <h3 style="margin-top:0">Security &amp; Production Notes</h3>
+            <ul style="margin:0 0 0 18px">
+                <li>Sanitize and validate inputs more strictly.</li>
+                <li>Use prepared statements and a database (MySQL/Postgres) instead of CSV for concurrency.</li>
+                <li>Protect against CSRF and add user authentication.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+(function(){
+    const seatTypeEl = document.getElementById('seat_type');
+    const seatsEl = document.getElementById('seats');
+    const priceLabel = document.getElementById('priceLabel');
+    const seatsLabel = document.getElementById('seatsLabel');
+    const totalLabel = document.getElementById('totalLabel');
+
+    function priceFor(type){ return type === 'AC' ? 600 : 350; }
+    function refresh(){
+        const type = seatTypeEl.value;
+        const seats = Math.max(1, parseInt(seatsEl.value || '1'));
+        const price = priceFor(type);
+        priceLabel.textContent = '₹' + price;
+        seatsLabel.textContent = seats;
+        totalLabel.textContent = '₹' + (price * seats);
+    }
+    seatTypeEl.addEventListener('change', refresh);
+    seatsEl.addEventListener('input', refresh);
+    document.addEventListener('DOMContentLoaded', refresh);
+
+   
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        if (!name || !email || !phone){
+            e.preventDefault();
+            alert('Please fill name, email and phone.');
+        }
+    });
+})();
+</script>
+
+
+</body></html>
